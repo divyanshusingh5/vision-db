@@ -1,12 +1,35 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React from "react";
+import Sidebar from "@/components/erd/Sidebar";
+import ERCanvas from "@/components/erd/ERCanvas";
+import { useERDiagram } from "@/hooks/useERDiagram";
 
 const Index = () => {
+  const erd = useERDiagram();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="flex h-screen w-screen overflow-hidden">
+      <Sidebar
+        tables={erd.tables}
+        relationships={erd.relationships}
+        selectedTableId={erd.selectedTableId}
+        onAddTable={erd.addTable}
+        onRemoveTable={erd.removeTable}
+        onSelectTable={erd.setSelectedTableId}
+        onUpdateTableName={erd.updateTableName}
+        onAddColumn={erd.addColumn}
+        onRemoveColumn={erd.removeColumn}
+        onUpdateColumn={erd.updateColumn}
+        onAddRelationship={erd.addRelationship}
+        onRemoveRelationship={erd.removeRelationship}
+        onLoadSample={erd.loadSampleData}
+      />
+      <ERCanvas
+        tables={erd.tables}
+        relationships={erd.relationships}
+        selectedTableId={erd.selectedTableId}
+        onSelectTable={erd.setSelectedTableId}
+        onUpdatePosition={erd.updateTablePosition}
+      />
     </div>
   );
 };
